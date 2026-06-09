@@ -1,0 +1,13 @@
+{
+  "extends": "markdownlint/style/relaxed",
+  "line-length": false,
+  "no-hard-tabs": true,
+  "no-trailing-punctuation": false,
+  "no-inline-html": false,
+  "ul-indent": {
+    "indent": 2
+  },
+  "code-block-style": {
+    "style": "fenced"
+  }
+}
