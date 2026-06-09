@@ -1,41 +1,64 @@
 {
-  "name": "vercel-template",
-  "version": "0.1.1",
-  "private": true,
+  "name": "fair-dinkum-book-hub",
+  "version": "1.0.0",
+  "description": "Professional eBook building platform with automated multi-format publishing via GitHub Actions",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "npm run build:html && npm run build:pdf && npm run build:epub",
+    "build:html": "node scripts/build-html.js",
+    "build:pdf": "node scripts/build-pdf.js",
+    "build:epub": "python scripts/build_epub.py",
+    "validate:markdown": "markdownlint 'content/**/*.md'",
+    "validate:frontmatter": "node scripts/validate-frontmatter.js",
+    "lint:content": "eslint scripts/**/*.js && prettier --check 'content/**/*.md'",
+    "optimize": "node scripts/optimize.js",
+    "dev": "nodemon --watch content --watch scripts --exec 'npm run build:html'",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean && npm run validate:frontmatter",
+    "postbuild": "npm run optimize",
+    "test": "npm run validate:markdown && npm run validate:frontmatter",
+    "prepare": "npm run test"
   },
+  "keywords": [
+    "ebook",
+    "publishing",
+    "markdown",
+    "pdf",
+    "epub",
+    "html",
+    "automation"
+  ],
+  "author": "Brett Anthony Sjoberg",
+  "license": "MIT",
   "dependencies": {
-    "@radix-ui/react-label": "^2.1.2",
-    "@radix-ui/react-slot": "^1.1.2",
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.49.4",
-    "@tailwindcss/postcss": "^4.0.13",
-    "@updatedev/js": "^0.4.1",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.476.0",
-    "next": "^15.2.4",
-    "next-themes": "^0.4.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.13",
-    "tailwindcss-animate": "^1.0.7"
+    "ebooklib": "^0.18.0",
+    "js-yaml": "^4.1.0",
+    "marked": "^9.1.2",
+    "puppeteer": "^21.1.1",
+    "yaml": "^2.3.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.0",
-    "@next/eslint-plugin-next": "^15.2.4",
-    "@types/node": "^20.17.24",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "eslint": "^9.22.0",
-    "eslint-config-next": "15.1.7",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "postcss": "^8.5.3",
-    "typescript": "^5.8.2"
-  }
+    "@types/node": "^20.3.1",
+    "eslint": "^8.44.0",
+    "jest": "^29.5.0",
+    "markdownlint": "^0.29.0",
+    "markdownlint-cli": "^0.34.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.0"
+  },
+  "optionalDependencies": {
+    "calibre": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brettanthonysjoberg179-lab/fair-dinkum-book-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brettanthonysjoberg179-lab/fair-dinkum-book-hub/issues"
+  },
+  "homepage": "https://github.com/brettanthonysjoberg179-lab/fair-dinkum-book-hub#readme"
 }
