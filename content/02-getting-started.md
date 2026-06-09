@@ -1,161 +1,209 @@
 ---
-title: Getting Started
-author: Fair Dinkum Publishing
+title: Getting Started with Copilot
+author: AI Development Guide
 date: 2026-06-09
 ---
 
-# Getting Started with Fair Dinkum Book Hub
-
-This chapter walks you through the initial setup and configuration of Fair Dinkum Book Hub on your system.
+# Getting Started with Copilot
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
+Before you begin, ensure you have:
 
-- **Node.js** v18.0.0 or higher
-- **Python** v3.11 or higher
-- **Git** v2.0 or higher
-- **npm** v9.0.0 or higher
+- A GitHub account (free or paid)
+- An IDE or code editor
+- Basic programming knowledge
+- Copilot subscription or free trial
 
-You can check your versions by running:
+## Installation Guide
 
-```bash
-node --version
-python --version
-git --version
-npm --version
+### For Visual Studio Code
+
+1. **Open VS Code Extension Marketplace**
+   - Click the Extensions icon in the sidebar
+   - Search for "GitHub Copilot"
+
+2. **Install the Extension**
+   - Click "Install" on the official GitHub extension
+   - Wait for installation to complete
+
+3. **Authorize GitHub**
+   - Click "Authorize VS Code"
+   - Sign in with your GitHub account
+   - Approve the authorization
+
+4. **Start Using Copilot**
+   - Open any code file
+   - Start typing and Copilot will provide suggestions
+
+### For JetBrains IDEs (IntelliJ, PyCharm, etc.)
+
+1. **Open Settings**
+   - Go to File → Settings (or Preferences on Mac)
+   - Search for "Plugins"
+
+2. **Install Plugin**
+   - Click "Marketplace" tab
+   - Search for "GitHub Copilot"
+   - Click "Install"
+
+3. **Authorize and Configure**
+   - Click the Copilot icon in the status bar
+   - Sign in with your GitHub account
+   - Configure preferences
+
+### For Vim/Neovim
+
+1. **Install via Plugin Manager**
+   ```bash
+   # Using vim-plug
+   Plug 'github/copilot.vim'
+   ```
+
+2. **Initialize Plugin**
+   ```bash
+   # Run in Vim
+   :Copilot setup
+   ```
+
+3. **Authenticate**
+   - Follow the browser link to authorize
+
+## Configuration
+
+### VS Code Settings
+
+```json
+{
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false
+  },
+  "github.copilot.advanced": {
+    "listCount": 10,
+    "inlineSuggestCount": 3
+  }
+}
 ```
 
-## Installation Steps
+### Keyboard Shortcuts
 
-### Step 1: Clone the Repository
+| Action | Shortcut |
+|--------|----------|
+| Accept suggestion | Tab |
+| Dismiss suggestion | Esc |
+| Next suggestion | Alt + ] |
+| Previous suggestion | Alt + [ |
+| Copilot Chat | Ctrl + I |
+| Open Copilot panel | Ctrl + Shift + I |
 
-```bash
-git clone https://github.com/brettanthonysjoberg179-lab/fair-dinkum-book-hub.git
-cd fair-dinkum-book-hub
-```
+## Your First Session
 
-### Step 2: Install Node Dependencies
+### Exercise 1: Simple Function
 
-```bash
-npm install
-```
+1. Create a new file: `sum.js`
+2. Type:
+   ```javascript
+   function addNumbers(a, b) {
+   ```
+3. Press Tab to accept Copilot's suggestion
+4. Review the generated code
 
-This will install all required Node.js packages including:
-- Puppeteer (for PDF generation)
-- Marked (for markdown parsing)
-- js-yaml (for YAML parsing)
-- And more build tools
+### Exercise 2: Using Comments
 
-### Step 3: Install System Dependencies
+1. Create a new file: `utils.js`
+2. Type:
+   ```javascript
+   // Function to reverse a string
+   function reverse
+   ```
+3. Let Copilot complete the function
+4. Accept or modify the suggestion
 
-For Ubuntu/Debian:
+### Exercise 3: Error Handling
 
-```bash
-sudo apt-get update
-sudo apt-get install -y wkhtmltopdf calibre pandoc ghostscript
-```
+1. Create a new file: `api.js`
+2. Type:
+   ```javascript
+   async function fetchData(url) {
+   ```
+3. Let Copilot generate the function
+4. Notice how it includes error handling
 
-For macOS:
+## Understanding Suggestions
 
-```bash
-brew install wkhtmltopdf calibre pandoc ghostscript
-```
+### Quality Indicators
 
-### Step 4: Install Python Dependencies
+Good suggestions:
+- ✅ Match your coding style
+- ✅ Follow language conventions
+- ✅ Include error handling
+- ✅ Are well-structured
 
-```bash
-pip install ebooklib pypub pyyaml
-```
+Poor suggestions:
+- ❌ Don't match your style
+- ❌ Have syntax errors
+- ❌ Use outdated patterns
+- ❌ Are overly complex
 
-## Verifying Installation
+### When to Accept/Reject
 
-Run the test command to verify everything is installed correctly:
+**Accept if:**
+- Matches your needs exactly
+- Follows best practices
+- Improves code quality
+- Saves significant time
 
-```bash
-npm test
-```
+**Reject if:**
+- Needs modifications
+- Doesn't fit your style
+- Uses outdated patterns
+- Could be more efficient
 
-You should see output confirming:
-- ✅ Markdown validation passed
-- ✅ Frontmatter validation passed
-- ✅ All dependencies installed
+## Troubleshooting Initial Setup
 
-## Directory Structure
+### Copilot Not Showing Suggestions
 
-Your project directory should look like this:
+1. **Check extension is enabled**
+   ```
+   Command Palette → GitHub Copilot: Enable/Disable
+   ```
 
-```
-fair-dinkum-book-hub/
-├── content/                 # Your markdown chapters
-├── scripts/                 # Build scripts
-├── dist/                    # Build output (auto-generated)
-├── .github/workflows/       # GitHub Actions workflows
-├── package.json             # Node dependencies
-├── .eslintrc.json          # Linting rules
-├── .prettierrc              # Code formatting
-└── README.md                # Project documentation
-```
+2. **Verify authentication**
+   - Sign out: `GitHub Copilot: Sign Out`
+   - Sign in: `GitHub Copilot: Sign In`
 
-## Your First Build
+3. **Check language support**
+   - Copilot may not work in all file types
+   - Try a .js, .py, or .java file
 
-To create your first eBook:
+4. **Restart editor**
+   - Close and reopen your IDE
+   - Sometimes resolves initialization issues
 
-```bash
-npm run build
-```
+### No Suggestions Appearing
 
-This will:
-1. Validate all markdown files
-2. Build HTML version
-3. Generate PDF from HTML
-4. Create EPUB format
-5. Optimize all assets
+1. **Wait for initialization**
+   - First load can take 30 seconds
 
-Output files will be in the `dist/` directory:
-- `dist/html/index.html` - Web version
-- `dist/ebook.pdf` - PDF version
-- `dist/ebook.epub` - E-reader version
+2. **Check status bar**
+   - Look for Copilot status indicator
+   - Should show active/ready
 
-## Troubleshooting
-
-### Missing Pandoc
-
-If you see errors about Pandoc, install it:
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install pandoc
-
-# macOS
-brew install pandoc
-```
-
-### Node Version Issues
-
-If npm scripts fail, ensure you're using Node v18+:
-
-```bash
-node --version
-nvm install 18
-nvm use 18
-```
-
-### Python Module Errors
-
-Reinstall Python dependencies:
-
-```bash
-pip install --upgrade ebooklib pypub pyyaml
-```
+3. **Review settings**
+   - Ensure Copilot isn't disabled globally
+   - Check file-specific settings
 
 ## Next Steps
 
-Now that you have everything set up:
+Now that Copilot is installed and working:
 
-1. Read the next chapter on creating content
-2. Add your first markdown chapter
-3. Build and preview your eBook
-4. Customize styling as needed
+1. **Practice with simple code** - Get comfortable with suggestions
+2. **Experiment with comments** - Guide Copilot with better descriptions
+3. **Try different languages** - See how Copilot adapts
+4. **Explore advanced features** - Copilot Chat, labs features
 
-You're ready to start writing!
+---
+
+**Congratulations!** You're ready to start using GitHub Copilot. In the next chapter, we'll explore best practices for maximum productivity.
